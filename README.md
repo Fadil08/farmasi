@@ -9,12 +9,12 @@ mv farmasi /var/www
 
 
 nano /etc/nginx/sites-available/farmasi.conf
-#isi File farmasi.conf
+# isi File farmasi.conf
 server {
     listen 80;
     listen [::]:80;
     server_name example.com;
-#    root /var/www/test;
+
     root /var/www/farmasi/public;
 
     add_header X-Frame-Options "SAMEORIGIN";
@@ -34,7 +34,6 @@ server {
     error_page 404 /index.php;
 
     location ~ \.php$ {
-  #      try_files =$uri = 404;
         fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_index index.php;
@@ -46,29 +45,29 @@ server {
         deny all;
     }
 }
-#membuat symbolic link
+#m embuat symbolic link
 ln -s /etc/nginx/sites-available/farmasi.conf /etc/nginx/sites-enabled/
 #Restart Service Nginx
 Systemctl restart nginx
-#install PHP dan konfigurasi
+# install PHP dan konfigurasi
 install php and its dependencies
 sudo apt install php8.1-fpm php8.1 php8.1-common php8.1-mysql php8.1-xml php8.1-xmlrpc php8.1-curl php8.1-gd php8.1-imagick php8.1-cli php8.1-imap php8.1-mbstring php8.1-opcache php8.1-soap php8.1-zip php8.1-intl php8.1-bcmath unzip -y
 php -v
 sudo nano /etc/php/8.1/fpm/php.ini
 cgi.fix_pathinfo=1
 sudo nano /etc/php/8.1/fpm/pool.d/www.conf
-#isi www.conf
+# isi www.conf
 user = www-data
 group = www-data
 listen.owner = www-data
 listen.group = www-data
 listen.allowed_clients = 127.0.0.1
 
-#Install composercurl -sS https://getcomposer.org/installer | php
+# Install composercurl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 composer --version
 
-#Install mysql-server
+# Install mysql-server
 sudo apt install mysql-server
 
 mysql
